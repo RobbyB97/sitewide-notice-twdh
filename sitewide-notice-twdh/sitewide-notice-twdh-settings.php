@@ -73,6 +73,7 @@ class SiteWide_Notice_TWDH_Settings{
 
       //If they have submitted the form.
       if( isset( $_POST['submit'] ) ) {
+      if( wp_verify_nonce($_POST['_nonce'], 'submit-user') ) {
 
         if( isset( $_POST['active'] ) &&  $_POST['active'] === 'on' ){
           $values['active'] = 1;
@@ -151,7 +152,7 @@ class SiteWide_Notice_TWDH_Settings{
         if( update_option( 'swnza_options', $values ) ) {
             SiteWide_Notice_TWDH_Settings::admin_notices_success();
         }
-
+      }
       }
 
       ?>
@@ -213,7 +214,7 @@ class SiteWide_Notice_TWDH_Settings{
                  <label for="background-color"><?php _e( 'Background Color', 'sitewide-notice-twdh' ); ?></label>
               </th>
               <td>
-                 <input type="text" name="background-color" class="color-picker" data-alpha="true" value="<?php echo $values['background-color']; ?>"/>
+                 <input type="text" name="background-color" class="color-picker" data-alpha="true" value="<?php echo sanitize_hex_color($values['background-color']); ?>"/>
               </td>
               </tr>
 
@@ -222,7 +223,7 @@ class SiteWide_Notice_TWDH_Settings{
                 <label for="font-color"><?php _e( 'Font Color', 'sitewide-notice-twdh' ); ?></label>
               </th>
               <td>
-                <input type="text" name="font-color" class="color-picker" data-alpha="true" value="<?php echo $values['font_color']; ?>"/>
+                <input type="text" name="font-color" class="color-picker" data-alpha="true" value="<?php echo sanitize_hex_color($values['font_color']); ?>"/>
               </td>
               </tr>
 
@@ -231,7 +232,7 @@ class SiteWide_Notice_TWDH_Settings{
                 <label for="message" class="col-sm-2 control-label"><?php _e('Message:', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="message" cols="40" rows="5" ><?php echo stripcslashes( $values['message'] ); ?></textarea>
+                <textarea name="message" cols="40" rows="5" ><?php echo stripcslashes(sanitize_text_field($values['message']) ); ?></textarea>
               </td>
               </tr>
               <tr>
@@ -247,7 +248,7 @@ class SiteWide_Notice_TWDH_Settings{
                 <label for="button-message" class="col-sm-2 control-label"><?php _e('Button Message:', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="button-message" cols="40" rows="5" ><?php echo stripcslashes( $values['button-message'] ); ?></textarea>
+                <textarea name="button-message" cols="40" rows="5" ><?php echo stripcslashes(sanitize_text_field($values['button-message']) ); ?></textarea>
               </td>
               </tr>
               <tr>
@@ -255,7 +256,7 @@ class SiteWide_Notice_TWDH_Settings{
                 <label for="button_link" class="col-sm-2 control-label"><?php _e('Button Link:', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="button_link" cols="40" rows="1" ><?php echo stripcslashes( $values['button_link'] ); ?></textarea>
+                <textarea name="button_link" cols="40" rows="1" ><?php echo stripcslashes(esc_url_raw($values['button_link']) ); ?></textarea>
               </td>
               </tr>
               <tr>
@@ -267,6 +268,7 @@ class SiteWide_Notice_TWDH_Settings{
                 </td>
               </tr>
               <tr>
+              <input type="hidden" name="_nonce" value="<?php echo wp_create_nonce('submit-user') ?>">
               <th scope="row">
               <input type="submit" name="submit" class="button-primary" value="<?php _e( 'Save Settings', 'sitewide-notice-twdh' ); ?>"/></th>
               </tr>
