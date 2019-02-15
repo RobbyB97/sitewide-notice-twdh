@@ -173,21 +173,23 @@ class SiteWide_Notice_TWDH {
                         <?php } ?>
                     }
 
-                    .swnza_banner div {
+                    .swnza_banner button {
                         background-color: <?php echo $swnza_options['font_color'] ?>;
                         color: <?php echo $swnza_options['background_color'] ?>;
                         text-align: center;
                         height: 1.5em;
-                        margin-top: .1em;
+                        margin-top: 0;
                         display: block;
                         font-size: 1em;
                         padding-left: 0.75em;
                         padding-right: 0.75em;
+                        padding-top: 0;
                         width: auto;
                         position: fixed;
                         right: 25%;
                         font-weight: 400;
                         z-index: 1;
+                        border: 0;
                         <?php if( isset( $swnza_options['button_wiggle'] ) && ! empty( $swnza_options['button_wiggle'] ) ) { ?>
                           animation-name: wiggle;
                           animation-duration: 2.5s;
@@ -277,11 +279,11 @@ class SiteWide_Notice_TWDH {
           <span>
             <p id="swnza_banner_text"><?php echo htmlspecialchars_decode( stripslashes( $swnza_options['message'] ) ); ?></p>
             <?php if( isset( $swnza_options['button'] ) && ! empty( $swnza_options['button'] ) ) { ?>
-            <div id="swnza_button_text">
+            <button id="swnza_button_text">
               <a href="<?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_link'] ) ); ?>">
               <?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_message'] ) ); ?>
               </a>
-            </div>
+            </button>
           <?php } ?>
           </span>
           <a id="swnza_close_button_link" class="swnza_close_button"></a>
