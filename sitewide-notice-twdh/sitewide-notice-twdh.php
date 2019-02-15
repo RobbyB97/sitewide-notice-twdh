@@ -3,9 +3,9 @@
  * Plugin Name: Sitewide Notice TWDH
  * Description: Adds a message bar and animated button to your webpage
  * Plugin URI: https://www.thewebdesignhub.com
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: The Web Design Hub
- * Author URI: https://www.thewebdesignhub.com
+ * Author URI: http://www.thewebdesignhub.com
  * License: GPL2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: sitewide-notice-twdh
@@ -120,7 +120,7 @@ class SiteWide_Notice_TWDH {
                         position:fixed;
                         height:2.5em;
                         width:100%;
-                        background-color:<?php echo $swnza_options['background-color'] ?>;
+                        background-color:<?php echo $swnza_options['background_color'] ?>;
                         padding-top:10px;
                         z-index:999;
                         display:block;
@@ -144,7 +144,7 @@ class SiteWide_Notice_TWDH {
 
                     .swnza_banner a {
                       text-decoration: none;
-                      color: <?php echo $swnza_options['background-color'] ?>;
+                      color: <?php echo $swnza_options['background_color'] ?>;
                     }
 
                     .swnza_banner p {
@@ -168,11 +168,14 @@ class SiteWide_Notice_TWDH {
                         <?php }else{ ?>
                           width: 100%;
                         <?php } ?>
+                        <?php if( !is_user_logged_in() ) { ?>
+                          margin-top: 0;
+                        <?php } ?>
                     }
 
                     .swnza_banner div {
                         background-color: <?php echo $swnza_options['font_color'] ?>;
-                        color: <?php echo $swnza_options['background-color'] ?>;
+                        color: <?php echo $swnza_options['background_color'] ?>;
                         text-align: center;
                         height: 1.5em;
                         margin-top: .1em;
@@ -202,7 +205,7 @@ class SiteWide_Notice_TWDH {
                         background:url("<?php echo plugins_url( 'images/close-button.svg', __FILE__ ); ?>") no-repeat center center;
                         background-color:white;
                         border-radius:100px;
-                        border: 3px solid <?php echo $swnza_options['background-color'] ?>;
+                        border: 3px solid <?php echo $swnza_options['background_color'] ?>;
                         fill: <?php echo $swnza_options['font_color'] ?>;
                     }
                     .swnza_close_button:hover{
@@ -276,7 +279,7 @@ class SiteWide_Notice_TWDH {
             <?php if( isset( $swnza_options['button'] ) && ! empty( $swnza_options['button'] ) ) { ?>
             <div id="swnza_button_text">
               <a href="<?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_link'] ) ); ?>">
-              <?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button-message'] ) ); ?>
+              <?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_message'] ) ); ?>
               </a>
             </div>
           <?php } ?>

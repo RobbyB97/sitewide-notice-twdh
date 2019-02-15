@@ -16,7 +16,7 @@ class SiteWide_Notice_TWDH_Settings{
      echo '
      <style>
        .dashicons-twdh {
-         background-image: url('.plugins_url("images/twdh-icon.png", __FILE__).');
+         background-image: url('.plugins_url("images/icon-white.png", __FILE__).');
          background-repeat: no-repeat;
          background-position: center;
        }
@@ -35,7 +35,7 @@ class SiteWide_Notice_TWDH_Settings{
      * @return void
      */
     public function admin_menu() {
-        add_menu_page( 'Sitewide Notice', 'Sitewide Notice', 'manage_options', 'sitewide-notice-settings', array( $this, 'settings_page_content' ), 'dashicons-megaphone' );
+        add_menu_page( 'Sitewide Notice TWDH', 'Sitewide Notice TWDH', 'manage_options', 'sitewide-notice-settings', array( $this, 'settings_page_content' ), 'dashicons-admin-plugins' );
 
     }
 
@@ -57,10 +57,10 @@ class SiteWide_Notice_TWDH_Settings{
         $values['active'] = '1';
         $values['button_wiggle'] = '1';
         $values['button'] = '1';
-        $values['background-color'] = 'rgba(255,255,255,1)';
+        $values['background_color'] = 'rgba(255,255,255,1)';
         $values['font_color'] = 'rgba(0,0,0,1)';
         $values['message'] = '';
-        $values['button-message'] = '';
+        $values['button_message'] = '';
         $values['show_on_mobile'] = true;
         $values['button_link'] = 'https://www.thewebdesignhub.com';
         $values['hide_for_logged_in'] = false;
@@ -73,7 +73,6 @@ class SiteWide_Notice_TWDH_Settings{
 
       //If they have submitted the form.
       if( isset( $_POST['submit'] ) ) {
-      if( wp_verify_nonce($_POST['_nonce'], 'submit-user') ) {
 
         if( isset( $_POST['active'] ) &&  $_POST['active'] === 'on' ){
           $values['active'] = 1;
@@ -100,18 +99,15 @@ class SiteWide_Notice_TWDH_Settings{
         }
 
         if( isset( $_POST['background-color'] ) ){
-          $values['background-color'] = sanitize_hex_color($_POST['background-color']);
-          update_post_meta($post->ID, 'background-color', $values['background-color']);
+          $values['background_color'] = $_POST['background-color'];
         }
 
         if( isset( $_POST['font-color'] ) ){
-          $values['font_color'] = sanitize_hex_color($_POST['font-color']);
-          update_post_meta($post->ID, 'font-color', $values['font-color']);
+          $values['font_color'] = $_POST['font-color'];
         }
 
         if( isset( $_POST['message'] ) ){
-          $values['message'] = sanitize_text_field( $_POST['message'] );
-          update_post_meta($post->ID, 'message', $values['message']);
+          $values['message'] = htmlspecialchars( $_POST['message'] );
         }
 
         if( isset( $_POST['button'] ) && $_POST['button'] === 'on' ){
@@ -120,13 +116,12 @@ class SiteWide_Notice_TWDH_Settings{
           $values['button'] = 0;
         }
 
-        if( isset( $_POST['button-message'] ) ){
-          $values['button-message'] = sanitize_text_field( $_POST['button-message'] );
-          update_post_meta($post->ID, 'button-message', $values['button-message']);
+        if( isset( $_POST['button_message'] ) ){
+          $values['button_message'] = htmlspecialchars( $_POST['button_message'] );
         }
 
         if( isset( $_POST['button_link'] ) ){
-          $values['button_link'] = esc_url_raw( $_POST['button_link'] );
+          $values['button_link'] = htmlspecialchars( $_POST['button_link'] );
         }
 
         if( isset( $_POST['button_wiggle'] ) && $_POST['button_wiggle'] === 'on' ){
@@ -152,7 +147,7 @@ class SiteWide_Notice_TWDH_Settings{
         if( update_option( 'swnza_options', $values ) ) {
             SiteWide_Notice_TWDH_Settings::admin_notices_success();
         }
-      }
+
       }
 
       ?>
@@ -165,7 +160,7 @@ class SiteWide_Notice_TWDH_Settings{
             <table class="form-table">
               <tr valign="top">
                 <th scope="row" width="50%">
-                    <label for="active"><?php _e( 'Show Banner', 'sitewide-notice-twdh' ); ?></label>
+                    <label for="active"><?php _e( 'Show Banner:', 'sitewide-notice-twdh' ); ?></label>
                 </th>
                 <td width="50%">
                 <input type="checkbox" name="active" <?php if( isset( $values['active'] ) && ! empty( $values['active'] ) ){ echo 'checked'; } ?> />
@@ -174,7 +169,7 @@ class SiteWide_Notice_TWDH_Settings{
 
               <tr>
                 <th scope="row">
-                <label for="show_on_mobile"><?php _e( 'Display Banner On Mobile Devices', 'sitewide-notice-twdh' ); ?></label>
+                <label for="show_on_mobile"><?php _e( 'Display Banner On Mobile Devices:', 'sitewide-notice-twdh' ); ?></label>
                 </th>
                 <td>
                    <input type="checkbox" name="show_on_mobile" <?php if( isset( $values['show_on_mobile'] ) && ! empty( $values['show_on_mobile'] ) ){ echo 'checked'; } ?> />
@@ -183,47 +178,26 @@ class SiteWide_Notice_TWDH_Settings{
 
               <tr>
                 <th scope="row">
-                <label for="hide_for_logged_in"><?php _e( 'Hide Banner For Logged-in Users', 'sitewide-notice-twdh' ); ?></label>
-                </th>
-                <td>
-                   <input type="checkbox" name="hide_for_logged_in" <?php if( isset( $values['hide_for_logged_in'] ) && ! empty( $values['hide_for_logged_in'] ) ){ echo 'checked'; } ?> />
-                </td>
-              </tr>
-
-
-              <tr>
-                <th scope="row">
-                  <label for="show_on_top"><?php _e( 'Show Banner On Top Of Screen', 'sitewide-notice-twdh' ); ?></label>
+                  <label for="show_on_top"><?php _e( 'Show Banner On Top Of Screen:', 'sitewide-notice-twdh' ); ?></label>
                 </th>
                 <td><input type="checkbox" name="show_on_top" <?php if( isset( $values['show_on_top'] ) && ! empty( $values['show_on_top'] ) ) { echo 'checked'; } ?>/></td>
               </tr>
 
-              <?php if( defined( 'PMPRO_VERSION' ) ) { ?>
-                <tr>
-                  <th scope="row">
-                  <label for="show_for_members"><?php _e( 'Display Banner For PMPro Members', 'sitewide-notice-twdh' ); ?></label>
-                  </th>
-                  <td>
-                     <input type="checkbox" name="show_for_members" <?php if( isset( $values['show_for_members'] ) && ! empty( $values['show_for_members'] ) ){ echo 'checked'; } ?> />
-                  </td>
-                </tr>
-              <?php } ?>
-
               <tr>
               <th scope="row">
-                 <label for="background-color"><?php _e( 'Background Color', 'sitewide-notice-twdh' ); ?></label>
+                 <label for="background-color"><?php _e( 'Background Color:', 'sitewide-notice-twdh' ); ?></label>
               </th>
               <td>
-                 <input type="text" name="background-color" class="color-picker" data-alpha="true" value="<?php echo sanitize_hex_color($values['background-color']); ?>"/>
+                 <input type="text" name="background-color" class="color-picker" data-alpha="true" value="<?php echo $values['background_color']; ?>"/>
               </td>
               </tr>
 
              <tr>
               <th scope="row">
-                <label for="font-color"><?php _e( 'Font Color', 'sitewide-notice-twdh' ); ?></label>
+                <label for="font-color"><?php _e( 'Font Color:', 'sitewide-notice-twdh' ); ?></label>
               </th>
               <td>
-                <input type="text" name="font-color" class="color-picker" data-alpha="true" value="<?php echo sanitize_hex_color($values['font_color']); ?>"/>
+                <input type="text" name="font-color" class="color-picker" data-alpha="true" value="<?php echo $values['font_color']; ?>"/>
               </td>
               </tr>
 
@@ -232,12 +206,12 @@ class SiteWide_Notice_TWDH_Settings{
                 <label for="message" class="col-sm-2 control-label"><?php _e('Message:', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="message" cols="40" rows="5" ><?php echo stripcslashes(sanitize_text_field($values['message']) ); ?></textarea>
+                <textarea name="message" cols="40" rows="5" ><?php echo stripcslashes( $values['message'] ); ?></textarea>
               </td>
               </tr>
               <tr>
                 <th scope="row">
-                <label for="button"><?php _e( 'Show Button', 'sitewide-notice-twdh' ); ?></label>
+                <label for="button"><?php _e( 'Show Button:', 'sitewide-notice-twdh' ); ?></label>
                 </th>
                 <td>
                    <input type="checkbox" name="button" <?php if( isset( $values['button'] ) && ! empty( $values['button'] ) ){ echo 'checked'; } ?> />
@@ -245,30 +219,29 @@ class SiteWide_Notice_TWDH_Settings{
               </tr>
               <tr>
               <th scope="row">
-                <label for="button-message" class="col-sm-2 control-label"><?php _e('Button Message:', 'sitewide-notice-twdh'); ?> </label>
+                <label for="button_message" class="col-sm-2 control-label"><?php _e('Button Message:', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="button-message" cols="40" rows="5" ><?php echo stripcslashes(sanitize_text_field($values['button-message']) ); ?></textarea>
+                <textarea name="button_message" cols="40" rows="5" ><?php echo stripcslashes( $values['button_message'] ); ?></textarea>
               </td>
               </tr>
               <tr>
               <th scope="row">
-                <label for="button_link" class="col-sm-2 control-label"><?php _e('Button Link:', 'sitewide-notice-twdh'); ?> </label>
+                <label for="button_link" class="col-sm-2 control-label"><?php _e('Button Link: (please enter the url you want to here)', 'sitewide-notice-twdh'); ?> </label>
               </th>
               <td>
-                <textarea name="button_link" cols="40" rows="1" ><?php echo stripcslashes(esc_url_raw($values['button_link']) ); ?></textarea>
+                <textarea name="button_link" cols="40" rows="1" ><?php echo stripcslashes( $values['button_link'] ); ?></textarea>
               </td>
               </tr>
               <tr>
                 <th scope="row">
-                <label for="button_wiggle"><?php _e( 'Button Wiggle Animation', 'sitewide-notice-twdh' ); ?></label>
+                <label for="button_wiggle"><?php _e( 'Button Wiggle Animation:', 'sitewide-notice-twdh' ); ?></label>
                 </th>
                 <td>
                    <input type="checkbox" name="button_wiggle" <?php if( isset( $values['button_wiggle'] ) && ! empty( $values['button_wiggle'] ) ){ echo 'checked'; } ?> />
                 </td>
               </tr>
               <tr>
-              <input type="hidden" name="_nonce" value="<?php echo wp_create_nonce('submit-user') ?>">
               <th scope="row">
               <input type="submit" name="submit" class="button-primary" value="<?php _e( 'Save Settings', 'sitewide-notice-twdh' ); ?>"/></th>
               </tr>
