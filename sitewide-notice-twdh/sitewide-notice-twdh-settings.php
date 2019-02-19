@@ -61,6 +61,8 @@ class SiteWide_Notice_TWDH_Settings{
         $values['font_color'] = 'rgba(0,0,0,1)';
         $values['message'] = '';
         $values['button_message'] = '';
+        $values['button_background'] = 'rgba(0,0,0,1)';
+        $values['button_font'] = 'rgba(255,255,255,1)';
         $values['show_on_mobile'] = true;
         $values['button_link'] = 'https://www.thewebdesignhub.com';
         $values['hide_for_logged_in'] = false;
@@ -118,6 +120,14 @@ class SiteWide_Notice_TWDH_Settings{
 
         if( isset( $_POST['button_message'] ) ){
           $values['button_message'] = htmlspecialchars( $_POST['button_message'] );
+        }
+
+        if( isset( $_POST['button_background'] ) ){
+          $values['button_background'] = $_POST['button_background'];
+        }
+
+        if( isset( $_POST['button_font'] ) ){
+          $values['button_font'] = $_POST['button_font'];
         }
 
         if( isset( $_POST['button_link'] ) ){
@@ -216,6 +226,22 @@ class SiteWide_Notice_TWDH_Settings{
                 <td>
                    <input type="checkbox" name="button" <?php if( isset( $values['button'] ) && ! empty( $values['button'] ) ){ echo 'checked'; } ?> />
                 </td>
+              </tr>
+              <tr>
+              <th scope="row">
+                 <label for="button_background"><?php _e( 'Button Background Color:', 'sitewide-notice-twdh' ); ?></label>
+              </th>
+              <td>
+                 <input type="text" name="button_background" class="color-picker" data-alpha="true" value="<?php echo $values['button_background']; ?>"/>
+              </td>
+              </tr>
+              <tr>
+              <th scope="row">
+                 <label for="button_font"><?php _e( 'Button Font Color:', 'sitewide-notice-twdh' ); ?></label>
+              </th>
+              <td>
+                 <input type="text" name="button_font" class="color-picker" data-alpha="true" value="<?php echo $values['button_font']; ?>"/>
+              </td>
               </tr>
               <tr>
               <th scope="row">

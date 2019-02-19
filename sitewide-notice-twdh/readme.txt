@@ -5,7 +5,7 @@ Donate: https://www.thewebdesignhub.com/donate/
 Tags: sitewide banner, site banner, banner, notice, sitewide notice, popup banner, simple banner, website banner, website notice, site notice, site message, website message bar, website bar message, message bar
 Requires at least: 3.5
 Tested up to: 5.0
-Stable tag: 1.0.1
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ Yes! Our plugin is free to use. We plan on adding additional features very soon.
 
 Yes! All HTML code is accepted. NOTE: Please make sure to use clean code.
 
-= Do you offer custom features not currently in Sitewide Notice TWDH = 
+= Do you offer custom features not currently in Sitewide Notice TWDH =
 
 We're working on new additions to the plugin. If there is something specific that you would like to implement and you don't have access to a web developer, please go to our website, https://www.thewebdesignhub.com and open up a support ticket. Someone will contact you as quickly as possible.
 
@@ -72,6 +72,12 @@ As you know, web development is expensive and we want to further develop our plu
 
 
 == Changelog ==
+
+= 1.0.3 =
+* Added options to customize button background and font color.
+
+= 1.0.2 =
+* Fixed an issue where the button wouldn't show up in Firefox.
 
 = 1.0.1 =
 * Made a few corrections to a few minor css issues.

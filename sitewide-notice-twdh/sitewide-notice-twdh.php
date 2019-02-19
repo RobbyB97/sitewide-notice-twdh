@@ -3,7 +3,7 @@
  * Plugin Name: Sitewide Notice TWDH
  * Description: Adds a message bar and animated button to your webpage
  * Plugin URI: https://www.thewebdesignhub.com
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: The Web Design Hub
  * Author URI: http://www.thewebdesignhub.com
  * License: GPL2 or later
@@ -174,8 +174,7 @@ class SiteWide_Notice_TWDH {
                     }
 
                     .swnza_banner button {
-                        background-color: <?php echo $swnza_options['font_color'] ?>;
-                        color: <?php echo $swnza_options['background_color'] ?>;
+                        background-color: <?php echo $swnza_options['button_background'] ?>;
                         text-align: center;
                         height: 1.5em;
                         margin-top: 0;
@@ -196,6 +195,10 @@ class SiteWide_Notice_TWDH {
                           animation-iteration-count: infinite;
                           animation-delay: 2s;
                         <?php } ?>
+                    }
+
+                    #button-msg {
+                      color: <?php echo $swnza_options['button_font'] ?>;
                     }
 
                     .swnza_close_button{
@@ -280,7 +283,7 @@ class SiteWide_Notice_TWDH {
             <p id="swnza_banner_text"><?php echo htmlspecialchars_decode( stripslashes( $swnza_options['message'] ) ); ?></p>
             <?php if( isset( $swnza_options['button'] ) && ! empty( $swnza_options['button'] ) ) { ?>
             <button id="swnza_button_text">
-              <a href="<?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_link'] ) ); ?>">
+              <a id="button-msg" href="<?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_link'] ) ); ?>">
               <?php echo htmlspecialchars_decode( stripslashes( $swnza_options['button_message'] ) ); ?>
               </a>
             </button>
