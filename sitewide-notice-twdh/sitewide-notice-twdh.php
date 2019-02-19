@@ -119,7 +119,8 @@ class SiteWide_Notice_TWDH {
                     .swnza_banner{
                         position:fixed;
                         height:2.5em;
-                        width:100%;
+                        width:100vw;
+                        left: 0;
                         background-color:<?php echo $swnza_options['background_color'] ?>;
                         padding-top:10px;
                         z-index:999;
@@ -204,7 +205,7 @@ class SiteWide_Notice_TWDH {
                     .swnza_close_button{
                         display:block;
                         position:absolute;
-                        right:5px;
+                        right:20px;
                         width:20px;
                         height:20px;
                         background:url("<?php echo plugins_url( 'images/close-button.svg', __FILE__ ); ?>") no-repeat center center;

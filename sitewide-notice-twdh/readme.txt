@@ -75,6 +75,7 @@ As you know, web development is expensive and we want to further develop our plu
 
 = 1.0.3 =
 * Added options to customize button background and font color.
+* Fixed banner sizing issue
 
 = 1.0.2 =
 * Fixed an issue where the button wouldn't show up in Firefox.
